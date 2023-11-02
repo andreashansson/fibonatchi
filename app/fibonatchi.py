@@ -11,9 +11,18 @@ def create_fibonatchi_values(position):
         index += 1
         if index == 1:
             v["1"] = "0"
+
+            if int(position) == 1:
+                return v
+
             continue
+
         elif index == 2:
             v["2"] = "1"
+
+            if int(position) == 2:
+                return v
+
             continue
 
         res = old + new
