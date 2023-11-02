@@ -1,5 +1,8 @@
 import json
 
+class WrongInputError(Exception):
+    pass
+
 class Fibonatchi:
     def __init__(self, skipped_file):
         self.skipped_file = skipped_file
