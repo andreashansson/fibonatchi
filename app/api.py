@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from fibonatchi import Fibonatchi, WrongInputError
 
 app = Flask(__name__)
 fc = Fibonatchi("./app/skipped.json")
@@ -23,7 +24,16 @@ class Api:
 
     @app.route("/skipped", methods=["POST"])
     def add_skipped_position():
-        return jsonify({"message": "created successfully"}), 201
+        position = request.get_json().get("position")
+        if not position:
+            return jsonify({"message": "no value in position body"}), 400
+
+        try:
+            fc.set_vals_to_skip(position)
+        except WrongInputError as e:
+            return jsonify({"message": str(e)}), 400
+
+        return jsonify({"message": "added successfully"}), 201
 
     @app.route("/skipped/<position>", methods=["DELETE"])
     def delete_skipped_position(position):
