@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
+fc = Fibonatchi("./app/skipped.json")
 
 class Api:
     def __init__(self):
@@ -8,12 +9,17 @@ class Api:
 
     @app.route("/positions/<position>")
     def positions(position):
-        if request.args.get('fetch') == "one":
-            print("fetch given number")
-        else:
-            print("fetch all up to given number")
+        try:
+            if request.args.get('fetch') == "one":
+                res = fc.get_fib_val_by_fib_pos(position)
+            else:
+                res = fc.get_fib_vals_up_to_fib_pos(position)
+        except WrongInputError as e:
+            return jsonify({"error": str(e)}), 400
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
-        return jsonify({})
+        return jsonify(res), 200
 
     @app.route("/skipped", methods=["POST"])
     def add_skipped_position():
