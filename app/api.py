@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
@@ -8,6 +8,11 @@ class Api:
 
     @app.route("/positions/<position>")
     def positions(position):
+        if request.args.get('fetch') == "one":
+            print("fetch given number")
+        else:
+            print("fetch all up to given number")
+
         return jsonify({})
 
     @app.route("/skipped", methods=["POST"])
