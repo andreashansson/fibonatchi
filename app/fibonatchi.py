@@ -1,5 +1,28 @@
 import json
 
+class Fibonatchi:
+    def __init__(self, skipped_file):
+        self.skipped_file = skipped_file
+
+    def get_fib_val_by_fib_pos(self, fib_pos):
+        skipped_vals = get_skipped(self.skipped_file)
+
+        if fib_pos in skipped_vals:
+            return {fib_pos: "skipped"}
+
+        all_fib_values = create_fibonatchi_values(fib_pos)
+        return {fib_pos: all_fib_values[fib_pos]}
+
+    def get_fib_vals_up_to_fib_pos(self, fib_pos):
+        skipped_vals = get_skipped(self.skipped_file)
+        res = create_fibonatchi_values(fib_pos)
+        for skipped_val in skipped_vals:
+            if int(skipped_val) > int(fib_pos):
+                continue
+            del res[skipped_val]
+
+        return res
+
 def create_fibonatchi_values(position):
     if int(position) <= 0:
         raise WrongInputError("number must be above 0")
