@@ -41,4 +41,4 @@ class Api:
         return jsonify({"message": "removed successfully"}), 204
 
     def start(self):
-        app.run(port=5005)
+        app.run()
