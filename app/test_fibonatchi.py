@@ -24,3 +24,17 @@ class TestFibonatchi(unittest.TestCase):
                 "9": "34",
             }
         )
+
+    def test_create_fibonatchi_values_with_one_value(self):
+        res = fibonatchi.create_fibonatchi_values("1")
+        self.assertEqual(
+            res,
+            {"1": "0"}
+        )
+
+    def test_create_fibonatchi_values_with_two_values(self):
+        res = fibonatchi.create_fibonatchi_values("2")
+        self.assertEqual(
+            res,
+            {"1": "0", "2": "1"}
+        )
