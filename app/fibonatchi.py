@@ -1,3 +1,4 @@
+import json
 
 def create_fibonatchi_values(position):
     if int(position) <= 0:
@@ -32,3 +33,27 @@ def create_fibonatchi_values(position):
 
         if index >= int(position):
             return v
+
+
+def get_skipped(file_path):
+    with open(file_path, "r") as json_file:
+        data = json.load(json_file)
+
+    return data
+
+
+def add_skipped(val, file_path):
+    try:
+        int(val)
+    except ValueError:
+        raise WrongInputError("must be a number")
+
+    data = set(get_skipped(file_path))
+    data.add(val)
+    data = list(data)
+    write_json(file_path, data)
+
+
+def write_json(file_path, data):
+    with open(file_path, "w") as json_file:
+        json.dump(data, json_file)
