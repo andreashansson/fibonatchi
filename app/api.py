@@ -37,6 +37,7 @@ class Api:
 
     @app.route("/skipped/<position>", methods=["DELETE"])
     def delete_skipped_position(position):
+        fc.remove_skipped_val(position)
         return jsonify({"message": "removed successfully"}), 204
 
     def start(self):

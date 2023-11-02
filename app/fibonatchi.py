@@ -26,6 +26,16 @@ class Fibonatchi:
 
         return res
 
+    def set_vals_to_skip(self, value):
+        add_skipped(value, self.skipped_file)
+
+    def remove_skipped_val(self, value):
+        all_values = get_skipped(self.skipped_file)
+        print(value)
+        if value in all_values:
+            all_values.remove(value)
+            write_json(self.skipped_file, all_values)
+
 def create_fibonatchi_values(position):
     if int(position) <= 0:
         raise WrongInputError("number must be above 0")
